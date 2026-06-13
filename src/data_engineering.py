@@ -1,5 +1,5 @@
 """
-PROJECT 2: E-Commerce Business Analytics
+E-Commerce Business Analytics
 Data Engineering Pipeline
 =========================
 

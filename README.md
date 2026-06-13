@@ -1,4 +1,4 @@
-# E-Commerce Business Analytics — Project 2
+# E-Commerce Business Analytics
 
 Analysis of one year (Dec 2010 – Dec 2011) of UCI *Online Retail* transaction
 data (~540K rows) from a UK-based wholesale gift company, to surface trends,
