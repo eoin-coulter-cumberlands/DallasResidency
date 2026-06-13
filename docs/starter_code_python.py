@@ -1,5 +1,5 @@
 """
-PROJECT 2: E-Commerce Business Analytics
+E-Commerce Business Analytics
 Group Project - Starter Code (Python)
 Saturday: 9.5 hours work time
 
