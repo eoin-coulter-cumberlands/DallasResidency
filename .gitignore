@@ -1,0 +1,21 @@
+# Generated processed datasets (reproducible via: python src/data_engineering.py)
+data/processed/*
+!data/processed/.gitkeep
+
+# Python
+__pycache__/
+*.py[cod]
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+
+# Generated analysis artifacts
+*.html
+analysis*_*.html
+project_summary.csv
