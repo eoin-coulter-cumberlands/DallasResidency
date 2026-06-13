@@ -32,6 +32,9 @@ pip install -r requirements.txt
 
 # 3. build the clean datasets from the raw Excel file
 python src/data_engineering.py
+
+# 4. generate the final submission deliverables
+python src/generate_deliverables.py
 ```
 
 This reads `data/raw/Online Retail.xlsx` and writes the processed datasets to
@@ -83,15 +86,21 @@ ah.revenue_forecast(periods=3) # Analysis 10
 
 Run `python -m src.analysis_helpers` to smoke-test all helpers at once.
 
-## Analysis ownership
+## Final deliverables
 
-| Role | Analyses |
-|------|----------|
-| Data Engineer | Data pipeline (all) + lead **1, 8** |
-| Analyst 1 | Customer & cohort — **3, 9** |
-| Analyst 2 | Product, basket, pricing — **2, 6, 7** |
-| Visualization Specialist | Geographic, time, forecasting — **4, 5, 10** |
-| Communications Lead | Report, slides, executive summary |
+Running `python src/generate_deliverables.py` creates a complete submission
+package in [`deliverables/`](deliverables):
+
+- `dashboard/ecommerce_dashboard.html` — executive dashboard
+- `report/ecommerce_technical_report.docx` — 4-6 page technical report
+- `presentation/ecommerce_business_analytics_deck.pptx` — 12-slide deck
+- `executive_summary.md` — quick summary of findings and actions
+- `figures/` and `tables/` — reusable assets behind the report and slides
+- `deliverables_manifest.json` — artifact index + headline findings
+
+This makes the project reproducible: if the raw workbook changes, rerun the
+pipeline and the deliverables script to refresh every output.
+
 
 ## Dataset citation
 
