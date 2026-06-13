@@ -1,0 +1,34 @@
+{
+  "headline_metrics": {
+    "total_revenue": 10247219.32,
+    "total_orders": 19773,
+    "total_customers": 4334,
+    "total_products": 3907,
+    "countries": 38,
+    "avg_order_value": 518.2430243261012,
+    "median_order_value": 302.20000000000005,
+    "date_start": "2010-12-01 08:26:00",
+    "date_end": "2011-12-09 12:50:00"
+  },
+  "findings": [
+    "Revenue reached GBP 10,247,219 from 19,773 orders, with an average order value of GBP 518.",
+    "Peak trading month was 2011-11 at GBP 1,452,116, and September to November formed the strongest seasonal run-up into year-end.",
+    "The business is highly concentrated in the UK (85.1% of revenue), but the Netherlands, EIRE, Germany, and France form a credible international expansion shortlist.",
+    "Repeat customers account for 65.3% of identified customers, while the December 2010 cohort retained 50.2% of customers by month 11.",
+    "Returns and cancellations reduced value by GBP 893,980, or about 8.7% of clean revenue.",
+    "The highest-value promotional window is late morning through mid-afternoon, especially Thursdays at 12:00 and Tuesdays/Thursdays overall."
+  ],
+  "recommendations": [
+    "Defend and scale top giftable SKUs such as REGENCY CAKESTAND 3 TIER, PARTY BUNTING, and JUMBO BAG RED RETROSPOT with priority inventory and featured placement.",
+    "Target high-value repeat buyers with replenishment and seasonal launch campaigns 30-45 days after purchase to lift cohort retention.",
+    "Concentrate promotional sends on Tuesday through Thursday and schedule merchandising pushes between 10:00 and 15:00 when conversion value is strongest.",
+    "Audit the unusually large return lines and manual adjustment codes separately so operational noise does not hide true merchandise returns.",
+    "Prioritize expansion tests in the Netherlands, EIRE, Germany, and France before broader international rollout because they already contribute meaningful revenue at low customer counts."
+  ],
+  "artifacts": {
+    "dashboard": "deliverables/dashboard/ecommerce_dashboard.html",
+    "executive_summary": "deliverables/executive_summary.md",
+    "technical_report": "deliverables/report/ecommerce_technical_report.docx",
+    "presentation": "deliverables/presentation/ecommerce_business_analytics_deck.pptx"
+  }
+}
