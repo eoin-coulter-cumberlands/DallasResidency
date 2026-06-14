@@ -9,6 +9,7 @@ __pycache__/
 .venv/
 venv/
 env/
+.matplotlib/
 
 # OS / editor
 .DS_Store
@@ -19,3 +20,4 @@ env/
 *.html
 analysis*_*.html
 project_summary.csv
+!deliverables/**/*.html
