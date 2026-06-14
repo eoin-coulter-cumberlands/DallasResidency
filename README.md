@@ -1,118 +1,95 @@
-# E-Commerce Business Analytics
+# E-Commerce Business Analytics - Project 2
 
-Analysis of one year (Dec 2010 – Dec 2011) of UCI *Online Retail* transaction
-data (~540K rows) from a UK-based wholesale gift company, to surface trends,
-customer behaviour, and actionable business insights.
+This project uses the UCI Online Retail dataset from a UK-based wholesale
+company to analyze one year of e-commerce transactions, identify revenue
+drivers, understand customer behavior, evaluate return risk, and recommend
+actions for sales growth.
 
-## Team
+## Repository Layout
 
-- Aishwaria Krishnaveni
-- Eoin Coulter
-- Mohammed Roshan Pudiyarakkal Valancheri
-- Mohammed Saqib
-- Priyanka Gulkota
-
-## Repository layout
-
-```
-DallasResidency/
-├── data/
-│   ├── raw/                     # Online Retail.xlsx (source dataset)
-│   └── processed/               # generated clean datasets (git-ignored)
-├── src/
-│   ├── data_engineering.py      # load → clean → feature-engineer → split
-│   └── analysis_helpers.py      # ready-to-plot tables for all 10 analyses
-├── docs/
-│   ├── derived_data_dictionary.md  # new fields + cleaning justifications
-│   └── starter_code_python.py      # original analysis template
-├── requirements.txt
-└── README.md
+```text
+data/
+  raw/                     Online Retail.xlsx source dataset
+  processed/               Cleaned parquet/CSV datasets
+src/
+  data_engineering.py      Data loading, cleaning, feature engineering, exports
+  analysis_helpers.py      Analysis tables for the 10 required analyses
+  generate_deliverables.py Figures, tables, dashboard, report, deck, manifest
+docs/
+  derived_data_dictionary.md
+deliverables/
+  dashboard/               Interactive HTML dashboard
+  figures/                 PNG visualizations
+  presentation/            Final PowerPoint deck
+  report/                  Final Word technical report
+  tables/                  CSV output tables
+requirements.txt
+SUBMISSION_CHECKLIST.md
 ```
 
 ## Setup
 
 ```bash
-# 1. (optional) create a virtual environment
-python3 -m venv .venv && source .venv/bin/activate
-
-# 2. install dependencies
+python -m venv .venv
 pip install -r requirements.txt
+```
 
-# 3. build the clean datasets from the raw Excel file
+## Run the Project
+
+Build or refresh the cleaned datasets:
+
+```bash
 python src/data_engineering.py
+```
 
-# 4. generate the final submission deliverables
+Generate project outputs from the cleaned datasets:
+
+```bash
 python src/generate_deliverables.py
 ```
 
-This reads `data/raw/Online Retail.xlsx` and writes the processed datasets to
-`data/processed/`, then prints a data-quality report. Add `--csv` to also export
-the cleaned master as CSV for the zip submission.
+The data pipeline reads `data/raw/Online Retail.xlsx`, writes cleaned datasets to
+`data/processed/`, and prints a data-quality summary. Add `--csv` when running
+`src/data_engineering.py` to export a cleaned master CSV.
 
-## Data engineering layer (this is the foundation for every analysis)
+## Code Scope
 
-The pipeline does all loading/cleaning/feature-engineering **once** and produces
-clean datasets so no analyst has to touch the raw file:
+The code files are limited to the functions required for this project:
 
-| Dataset | What it is |
-|---------|-----------|
-| `sales.parquet` | Canonical revenue rows (positive qty & price, not cancelled, real products) |
-| `returns.parquet` | All returns/cancellations (Analysis 8) |
-| `products.parquet` | Per-product revenue/quantity/orders summary |
-| `customers.parquet` | Per-customer RFM / CLV / cohort building blocks |
-| `transactions_clean.parquet` | Master: every row + flags (`IsGuest`, `IsReturn`, `IsProduct`, outlier flags, time fields) |
+- imports and setup
+- data loading
+- data cleaning and feature engineering
+- sales, product, customer, geographic, time, basket, pricing, returns, cohort,
+  and forecasting analyses
+- visualizations
+- exports for tables, figures, dashboard, report, presentation, and manifest
+- concise printed summaries for reproducible command-line runs
 
-Cleaning decisions and every derived field are documented in
-[`docs/derived_data_dictionary.md`](docs/derived_data_dictionary.md).
+## Required Analyses
 
-### Headline numbers (after cleaning)
+1. Sales overview and trends
+2. Product performance analysis
+3. Customer behavior and segmentation
+4. Geographic sales analysis
+5. Time-based patterns
+6. Basket analysis
+7. Pricing analysis
+8. Returns/cancellations analysis
+9. Cohort analysis
+10. Sales forecasting and predictions
 
-- **536,641** clean transaction rows (5,268 duplicates removed)
-- **£10.2M** total clean revenue across **19,773** orders
-- **4,334** identified customers · **3,907** products · **38** countries
-- **10,587** return/cancellation lines (−£894K impact)
+## Final Deliverables
 
-## Using the helpers in an analysis
+- `deliverables/dashboard/ecommerce_dashboard.html`
+- `deliverables/presentation/ecommerce_business_analytics_deck.pptx`
+- `deliverables/report/ecommerce_technical_report.docx`
+- `deliverables/figures/*.png`
+- `deliverables/tables/*.csv`
+- `deliverables/deliverables_manifest.json`
 
-Each of the 10 required analyses has ready-to-use helper functions that return
-tidy, plot-ready DataFrames:
-
-```python
-from src import analysis_helpers as ah
-
-ah.monthly_revenue()           # Analysis 1: trend + MoM growth
-ah.top_products_by_revenue()   # Analysis 2
-ah.rfm_segments()              # Analysis 3: RFM scores + segments
-ah.revenue_by_country()        # Analysis 4
-ah.revenue_heatmap_day_hour()  # Analysis 5: day×hour matrix
-ah.basket_summary()            # Analysis 6
-ah.revenue_by_price_band()     # Analysis 7
-ah.top_returned_products()     # Analysis 8
-ah.cohort_retention_rate()     # Analysis 9
-ah.revenue_forecast(periods=3) # Analysis 10
-```
-
-Run `python -m src.analysis_helpers` to smoke-test all helpers at once.
-
-## Final deliverables
-
-Running `python src/generate_deliverables.py` creates a complete submission
-package in [`deliverables/`](deliverables):
-
-- `dashboard/ecommerce_dashboard.html` — executive dashboard
-- `report/ecommerce_technical_report.docx` — 4-6 page technical report
-- `presentation/ecommerce_business_analytics_deck.pptx` — 12-slide deck
-- `executive_summary.md` — quick summary of findings and actions
-- `figures/` and `tables/` — reusable assets behind the report and slides
-- `deliverables_manifest.json` — artifact index + headline findings
-
-This makes the project reproducible: if the raw workbook changes, rerun the
-pipeline and the deliverables script to refresh every output.
-
-
-## Dataset citation
+## Dataset Citation
 
 Daqing Chen, Sai Liang Sain, and Kun Guo (2012). *Data mining for the online
 retail industry: A case study of RFM model-based customer segmentation using
 data mining.* Journal of Database Marketing & Customer Strategy Management,
-19(3), 197–208. doi:10.1057/dbm.2012.17
+19(3), 197-208. doi:10.1057/dbm.2012.17

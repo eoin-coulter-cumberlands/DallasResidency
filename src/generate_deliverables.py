@@ -1,18 +1,9 @@
 """
-Generate the final submission artifacts for the e-commerce analytics project.
-
-This script turns the cleaned datasets and analysis helpers into a reproducible
-submission package:
-
-- dashboard HTML
-- executive summary markdown
-- technical report DOCX
-- presentation PPTX
-- chart PNGs
-- supporting CSV tables
+This script uses the cleaned Online Retail datasets to run the project analyses
+and export the dashboard, summary files, figures, tables, report, and slide deck.
 
 Run:
-    python3 src/generate_deliverables.py
+    python src/generate_deliverables.py
 """
 
 from __future__ import annotations
@@ -1023,7 +1014,7 @@ def build_dashboard(payload: dict, figures: dict[str, Path]) -> Path:
   <div class="app-bar">
     <div class="brand">Retail Analytics Studio</div>
     <div class="chip-row">
-      <span class="chip">Retail performance</span>
+      <span class="chip">Executive dashboard</span>
       <span class="chip">Sales and customer insights</span>
       <span class="chip">Forecast and retention view</span>
     </div>
@@ -1056,11 +1047,11 @@ def build_dashboard(payload: dict, figures: dict[str, Path]) -> Path:
 
     <section class="two-col">
       <div class="panel">
-        <h2>Key Takeaways</h2>
+        <h2>Executive Findings</h2>
         <ul>{finding_items}</ul>
       </div>
       <div class="panel">
-        <h2>What We Recommend</h2>
+        <h2>Recommended Actions</h2>
         <ul>{recommendation_items}</ul>
       </div>
     </section>

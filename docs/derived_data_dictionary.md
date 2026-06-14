@@ -75,7 +75,7 @@ for the zip submission (~100 MB, git-ignored).
    excludes them so revenue is not understated/distorted. *(Dictionary Option 2.)*
 
 4. **Zero / negative prices (2,512) — excluded from `sales`, flagged in master.**
-   These are gifts, samples, or bad-debt adjustments (one price is −£11,062) and
+   These are gifts, samples, or bad-debt adjustments (one price is negative GBP 11,062) and
    would skew pricing analysis.
 
 5. **Non-product line items — flagged `IsProduct = False`.** Codes such as

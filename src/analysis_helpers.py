@@ -1,26 +1,7 @@
 """
-E-Commerce Business Analytics
-Analysis Helpers
-================
-
-Owner: Data Engineer (consumed by all analysts)
-
-These functions return clean, ready-to-plot tables for each of the 10 required
-analyses. They sit on top of the datasets produced by `data_engineering.py`, so
-no analyst has to re-clean the raw data or re-decide how to treat returns,
-guests, or outliers.
-
-Typical use inside a notebook / analysis script:
-
-    from src import analysis_helpers as ah
-
-    monthly = ah.monthly_revenue()          # Analysis 1
-    top_rev = ah.top_products_by_revenue()  # Analysis 2
-    rfm     = ah.rfm_segments()             # Analysis 3
-    ...
-
-Every function loads its inputs lazily via the cached parquet files, so they are
-cheap to call repeatedly and independently.
+This script uses the cleaned Online Retail datasets to compute the analysis
+tables needed for sales, product, customer, geography, timing, basket, pricing,
+returns, cohort, and forecasting work.
 """
 
 from __future__ import annotations
@@ -272,8 +253,8 @@ def basket_metrics() -> dict:
 def revenue_by_price_band() -> pd.DataFrame:
     sales = load_sales()
     bins = [0, 1, 2, 5, 10, 20, 50, 100, np.inf]
-    labels = ["<£1", "£1-2", "£2-5", "£5-10", "£10-20",
-              "£20-50", "£50-100", "£100+"]
+    labels = ["Under GBP 1", "GBP 1-2", "GBP 2-5", "GBP 5-10",
+              "GBP 10-20", "GBP 20-50", "GBP 50-100", "GBP 100+"]
     band = pd.cut(sales["UnitPrice"], bins=bins, labels=labels, right=False)
     out = (
         sales.assign(PriceBand=band)
@@ -410,49 +391,3 @@ def revenue_forecast(periods: int = 3) -> pd.DataFrame:
     })
     actual = fit[["YearMonth", "Revenue"]].assign(Type="Actual")
     return pd.concat([actual, forecast], ignore_index=True)
-
-
-# --------------------------------------------------------------------------- #
-# Smoke test: confirm every helper returns something usable.
-# --------------------------------------------------------------------------- #
-if __name__ == "__main__":
-    checks = {
-        "headline_metrics": headline_metrics,
-        "monthly_revenue": monthly_revenue,
-        "weekly_revenue": weekly_revenue,
-        "seasonal_revenue": seasonal_revenue,
-        "top_products_by_revenue": top_products_by_revenue,
-        "top_products_by_quantity": top_products_by_quantity,
-        "underperforming_products": underperforming_products,
-        "price_vs_volume": price_vs_volume,
-        "customer_frequency": customer_frequency,
-        "repeat_vs_onetime": repeat_vs_onetime,
-        "top_customers_by_clv": top_customers_by_clv,
-        "rfm_segments": rfm_segments,
-        "revenue_by_country": revenue_by_country,
-        "domestic_vs_international": domestic_vs_international,
-        "revenue_by_day_of_week": revenue_by_day_of_week,
-        "revenue_by_hour": revenue_by_hour,
-        "revenue_heatmap_day_hour": revenue_heatmap_day_hour,
-        "weekend_vs_weekday": weekend_vs_weekday,
-        "basket_summary": basket_summary,
-        "basket_metrics": basket_metrics,
-        "revenue_by_price_band": revenue_by_price_band,
-        "price_points": price_points,
-        "returns_summary": returns_summary,
-        "top_returned_products": top_returned_products,
-        "returns_over_time": returns_over_time,
-        "returns_by_country": returns_by_country,
-        "cohort_retention": cohort_retention,
-        "cohort_retention_rate": cohort_retention_rate,
-        "revenue_forecast": revenue_forecast,
-    }
-    print(f"Running smoke test on {len(checks)} helpers ...\n")
-    for name, fn in checks.items():
-        out = fn()
-        if isinstance(out, dict):
-            shape = f"dict({len(out)} keys)"
-        else:
-            shape = f"{out.shape[0]} rows x {out.shape[1]} cols"
-        print(f"  [ok] {name:30s} -> {shape}")
-    print("\nAll helpers returned data successfully.")

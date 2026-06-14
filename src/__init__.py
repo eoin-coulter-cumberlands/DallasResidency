@@ -1,1 +1,1 @@
-"""E-Commerce Business Analytics - source package."""
+"""Source package for the Online Retail e-commerce analysis."""

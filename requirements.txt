@@ -15,6 +15,6 @@ plotly>=5.20
 # --- Notebook / dashboard (optional, pick what your team uses) ---
 jupyter>=1.0
 
-# --- Final artifact generation ---
+# --- Final submission artifact generation ---
 python-docx>=1.2
 python-pptx>=1.0

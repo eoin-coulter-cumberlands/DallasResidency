@@ -1,36 +1,9 @@
 """
-E-Commerce Business Analytics
-Data Engineering Pipeline
-=========================
+This script uses the UCI Online Retail dataset to load, clean, and prepare
+analysis-ready e-commerce transaction datasets.
 
-Owner: Data Engineer
-
-This module is the single source of truth for loading, cleaning, and feature
-engineering of the UCI Online Retail dataset (Dec 2010 - Dec 2011). It produces
-clean, analysis-ready datasets that every one of the 10 required analyses can
-load directly, so the analysts never have to re-clean the raw file.
-
-Run as a script to (re)build everything in data/processed/:
-
+Run:
     python src/data_engineering.py
-
-Or import the pieces you need:
-
-    from src.data_engineering import load_clean, load_sales, load_returns
-    sales = load_sales()          # canonical revenue-generating transactions
-
-Cleaning decisions (justified in docs/derived_data_dictionary.md):
-  1. Drop exact duplicate rows.
-  2. Parse InvoiceDate; clip to the real data range (drops future-dated rows).
-  3. Derive TotalPrice and a full set of time fields.
-  4. Flag returns/cancellations (IsReturn, IsCancelled) and keep them; ship a
-     separate returns dataset for Analysis 8.
-  5. Flag missing CustomerID as IsGuest; keep the rows for revenue/product
-     analysis but exclude them from customer/cohort helpers.
-  6. Flag non-product line items (POST, M, D, BANK CHARGES, ...) as IsProduct=False.
-  7. Use StockCode as the product key; derive one canonical description per code.
-  8. Flag outliers using the data-dictionary bounds; do NOT drop them from the
-     master so analysts can decide.
 """
 
 from __future__ import annotations
